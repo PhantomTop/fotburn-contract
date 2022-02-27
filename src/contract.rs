@@ -19,7 +19,7 @@ use crate::state::{
 // Version info, for migration info
 const CONTRACT_NAME: &str = "fotburn";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
-const FOT_STEP:u128 = 1_000_000u128;
+const FOT_STEP:u128 = 1_000_000_000_000u128;
 
 
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -128,6 +128,9 @@ pub fn try_receive(
             let mut sliceamount = fot_amount.checked_rem(Uint128::from(FOT_STEP)).unwrap();
             if sliceamount == Uint128::zero() {
                 sliceamount = Uint128::from(FOT_STEP);
+            }
+            if sliceamount > amount {
+                sliceamount = amount;
             }
             bfot_send_amount = bfot_send_amount + calc_bfot_amount(sliceamount, calc_fot_rate(fot_amount));
             fot_amount = fot_amount - sliceamount;
