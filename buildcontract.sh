@@ -157,20 +157,17 @@ GetContractAddress() {
 #Send initial tokens
 SendFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $FOT_ADDRESS '{"send":{"amount":"800","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG
-
-    #Display output for FOT
-
+    junod tx wasm execute $FOT_ADDRESS '{"send":{"amount":"10","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 SendBFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"800","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG
+    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"1000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 Withdraw() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $CONTRACT_FOTBURN '{"withdraw_all":{}}' $WALLET $TXFLAG
+    junod tx wasm execute $CONTRACT_FOTBURN '{"withdraw_all":{}}' $WALLET $TXFLAG -y
 }
 
 PrintConfig() {
@@ -183,9 +180,11 @@ PrintWalletBalance() {
     echo "native balance"
     echo "========================================="
     junod query bank balances $ADDR_WORKSHOP $NODECHAIN
+    echo "========================================="
     echo "FOT balance"
     echo "========================================="
     junod query wasm contract-state smart $FOT_ADDRESS '{"balance":{"address":"'$ADDR_WORKSHOP'"}}' $NODECHAIN
+    echo "========================================="
     echo "BFOT balance"
     echo "========================================="
     junod query wasm contract-state smart $BFOT_ADDRESS '{"balance":{"address":"'$ADDR_WORKSHOP'"}}' $NODECHAIN
@@ -202,11 +201,13 @@ sleep 10
 sleep 10
     GetContractAddress
 sleep 5
-    SendFot
-sleep 5
     SendBFot
 sleep 5
+    SendFot
+sleep 5
     Withdraw
+sleep 5
+    PrintConfig
 sleep 5
     PrintWalletBalance
 else

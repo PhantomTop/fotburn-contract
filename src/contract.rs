@@ -1,11 +1,11 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    attr, to_binary, from_binary, Addr, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult, Uint128,
-    WasmMsg, WasmQuery, Querier, QueryRequest
+    attr, to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult, Uint128,
+    WasmMsg, WasmQuery, QueryRequest
 };
 use cw2::{get_contract_version, set_contract_version};
-use cw20::{Balance, Cw20Coin, Cw20CoinVerified, Cw20ExecuteMsg, Cw20ReceiveMsg, Cw20QueryMsg, Cw20Contract};
+use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, Cw20QueryMsg};
 use cw20::{TokenInfoResponse};
 
 use crate::error::ContractError;
@@ -51,7 +51,7 @@ pub fn instantiate(
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(
     deps: DepsMut,
-    env: Env,
+    _env: Env,
     info: MessageInfo,
     msg: ExecuteMsg,
 ) -> Result<Response, ContractError> {
@@ -133,6 +133,7 @@ pub fn try_receive(
             fot_amount = fot_amount - sliceamount;
             amount = amount - sliceamount;
         }
+        // bfot_send_amount = amount.checked_div(Uint128::from(10u128)).unwrap();
         if cfg.bfot_current_amount < bfot_send_amount {
             return Err(ContractError::NotEnoughbFOT {})
         }
