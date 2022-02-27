@@ -157,12 +157,12 @@ GetContractAddress() {
 #Send initial tokens
 SendFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $FOT_ADDRESS '{"send":{"amount":"10","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
+    junod tx wasm execute $FOT_ADDRESS '{"send":{"amount":"230000000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 SendBFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"1000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
+    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"10000000000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 Withdraw() {
