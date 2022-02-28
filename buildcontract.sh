@@ -18,7 +18,7 @@ NODE="--node https://rpc.juno.giansalex.dev:443"
 CHAIN_ID=uni-2
 DENOM="ujunox"
 FOT_ADDRESS="juno1ntf0uj4ukc0hzj0dpuyc3707kpv09kfxs00edxg08m6cvyw384msk0jemk"
-BFOT_ADDRESS="juno1vp75pv5epperxk6gtyhyhd46jnk7hdl44n7n4vwgwgf5hj30vtxq9kay3j"
+BFOT_ADDRESS="juno1af8ul350aj7furmcmty7efl7y7uv83le7rla6td9tgdhsszkjvkstpf64w"
 
 ##########################################################################################
 #not depends
@@ -170,6 +170,11 @@ Withdraw() {
     junod tx wasm execute $CONTRACT_FOTBURN '{"withdraw_all":{}}' $WALLET $TXFLAG -y
 }
 
+UpdateConfig() {
+    CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
+    junod tx wasm execute $CONTRACT_FOTBURN '{"update_config":{"new_owner":"'$ADDR_WORKSHOP'"}}' $WALLET $TXFLAG -y
+}
+
 PrintConfig() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
     junod query wasm contract-state smart $CONTRACT_FOTBURN '{"config":{}}' $NODECHAIN
@@ -202,10 +207,10 @@ sleep 10
     GetContractAddress
 sleep 5
     SendBFot
-sleep 5
-    SendFot
-sleep 5
-    Withdraw
+# sleep 5
+#     SendFot
+# sleep 5
+#     Withdraw
 sleep 5
     PrintConfig
 sleep 5

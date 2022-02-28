@@ -227,11 +227,6 @@ pub fn execute_update_config(
 
 pub fn try_withdraw_all(deps: DepsMut, info: MessageInfo) -> Result<Response, ContractError> {
 
-    // let cfg = CONFIG.load(deps.storage)?;
-    // let owner = cfg.owner.ok_or(ContractError::Unauthorized {})?;
-    // if owner != info.sender {
-    //     return Err(ContractError::Unauthorized {});
-    // }
     check_owner(&deps, &info)?;
     let mut cfg = CONFIG.load(deps.storage)?;
     
