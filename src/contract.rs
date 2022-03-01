@@ -19,7 +19,7 @@ use crate::state::{
 // Version info, for migration info
 const CONTRACT_NAME: &str = "fotburn";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
-const FOT_STEP:u128 = 1_000_000_000_000u128;
+const FOT_STEP:u128 = 10_000_000_000_000_000u128;
 
 
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -67,7 +67,7 @@ pub fn calc_fot_rate(
     fot_amount: Uint128
 )-> Uint128 {
     
-    let mut step = fot_amount.checked_div(Uint128::from(FOT_STEP)).unwrap();
+    let mut step = (fot_amount - Uint128::from(1u128)).checked_div(Uint128::from(FOT_STEP)).unwrap();
     step = step + Uint128::from(1u128);
 
     return Uint128::from(110u128) - step;
@@ -79,7 +79,7 @@ pub fn calc_bfot_amount(
     fot_rate: Uint128
 )-> Uint128 {
     
-    return fot_amount.checked_div(fot_rate).unwrap();
+    return fot_amount.checked_mul(fot_rate).unwrap();
 }
 
 pub fn try_receive(
