@@ -17,8 +17,8 @@ NODE="--node https://rpc.juno.giansalex.dev:443"
 #NODE="--node https://rpc.uni.junomint.com:443"
 CHAIN_ID=uni-2
 DENOM="ujunox"
-FOT_ADDRESS="juno1mnew249sa8aaj85nfzguzuv0ydvayfywe5ej3gjhxqdh8wgw8fgsp7y4jj"
-BFOT_ADDRESS="juno1y5mec2tvyvdzn87w3nkjaudpmztcpprsdx0l7t6pnx9jh8wg9x0s4drk8s"
+FOT_ADDRESS="juno1xvg3uhqqjcls277jkdfgfnve29r537jme95dgnu3xw485q6ykkus9470ah"
+BFOT_ADDRESS="juno1f69f4902tgkuthp26ghwjwta9e5ulqdelcmdxp8acevw89w0028sflaunv"
 
 ##########################################################################################
 #not depends
@@ -162,7 +162,7 @@ SendFot() {
 
 SendBFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"499999999910000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
+    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"100000000000000000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 Withdraw() {
@@ -197,18 +197,18 @@ PrintWalletBalance() {
 
 #################################### End of Function ###################################################
 if [[ $PARAM == "" ]]; then
-    RustBuild
-    Upload
-sleep 8
-    GetCode
-sleep 10
+#     RustBuild
+#     Upload
+# sleep 8
+#     GetCode
+# sleep 10
     Instantiate
 sleep 10
     GetContractAddress
 sleep 5
     SendBFot
-sleep 5
-    SendFot
+# sleep 5
+#     SendFot
 # sleep 5
 #     Withdraw
 sleep 5
