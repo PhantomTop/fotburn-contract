@@ -5,20 +5,20 @@ PARAM=$1
 ####################################    Constants    ##################################################
 
 #depends on mainnet or testnet
-# NODE="--node https://rpc.junomint.com:443"
-# CHAIN_ID=juno-1
-# DENOM="ujuno"
-# FOT_ADDRESS="juno1xmpenz0ykxfy8rxr3yc3d4dtqq4dpas4zz3xl6sh873us3vajlpshzp69d"
-# BFOT_ADDRESS="juno1vaeuky9hqacenay9nmuualugvv54tdhyt2wsvhnjasx9s946hhmqaq3kh7"
+NODE="--node https://rpc.junomint.com:443"
+CHAIN_ID=juno-1
+DENOM="ujuno"
+FOT_ADDRESS="juno1xmpenz0ykxfy8rxr3yc3d4dtqq4dpas4zz3xl6sh873us3vajlpshzp69d"
+BFOT_ADDRESS="juno1vaeuky9hqacenay9nmuualugvv54tdhyt2wsvhnjasx9s946hhmqaq3kh7"
 
 ##########################################################################################
 
-NODE="--node https://rpc.juno.giansalex.dev:443"
-#NODE="--node https://rpc.uni.junomint.com:443"
-CHAIN_ID=uni-2
-DENOM="ujunox"
-FOT_ADDRESS="juno1xvg3uhqqjcls277jkdfgfnve29r537jme95dgnu3xw485q6ykkus9470ah"
-BFOT_ADDRESS="juno1f69f4902tgkuthp26ghwjwta9e5ulqdelcmdxp8acevw89w0028sflaunv"
+# NODE="--node https://rpc.juno.giansalex.dev:443"
+# #NODE="--node https://rpc.uni.junomint.com:443"
+# CHAIN_ID=uni-2
+# DENOM="ujunox"
+# FOT_ADDRESS="juno1yqmcu5uw27mzkacputegtg46cx55ylwgcnatjy3mejxqdjsx3kmq5a280s"
+# BFOT_ADDRESS="juno1f69f4902tgkuthp26ghwjwta9e5ulqdelcmdxp8acevw89w0028sflaunv"
 
 ##########################################################################################
 #not depends
@@ -130,7 +130,7 @@ Instantiate() {
     
     #read from FILE_CODE_ID
     CODE_ID=$(cat $FILE_CODE_ID)
-    junod tx wasm instantiate $CODE_ID '{"owner":"'$ADDR_WORKSHOP'", "fot_token_address":"'$FOT_ADDRESS'", "bfot_token_address":"'$BFOT_ADDRESS'"}' --label "Fot Burn $CODE_ID" $WALLET $TXFLAG -y
+    junod tx wasm instantiate $CODE_ID '{"owner":"'$ADDR_WORKSHOP'", "fot_token_address":"'$FOT_ADDRESS'", "bfot_token_address":"'$BFOT_ADDRESS'"}' --label "FOT Burn" $WALLET $TXFLAG -y
 }
 
 #Get Instantiated Contract Address
@@ -157,12 +157,12 @@ GetContractAddress() {
 #Send initial tokens
 SendFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $FOT_ADDRESS '{"send":{"amount":"1000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
+    junod tx wasm execute $FOT_ADDRESS '{"send":{"amount":"10000000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 SendBFot() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"100000000000000000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
+    junod tx wasm execute $BFOT_ADDRESS '{"send":{"amount":"59500000000000000000","contract":"'$CONTRACT_FOTBURN'","msg":""}}' $WALLET $TXFLAG -y
 }
 
 Withdraw() {
