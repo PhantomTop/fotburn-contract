@@ -34,7 +34,7 @@ FILE_CODE_ID="code.txt"
 
 ADDR_WORKSHOP="juno1htjut8n7jv736dhuqnad5mcydk6tf4ydeaan4s"
 ADDR_ACHILLES="juno15fg4zvl8xgj3txslr56ztnyspf3jc7n9j44vhz"
-
+ADDR_CEM="juno1ympg4qz2t4u76kfhgh46yct9uuhye693y65vep"
 ###################################################################################################
 ###################################################################################################
 ###################################################################################################
@@ -172,7 +172,7 @@ Withdraw() {
 
 UpdateConfig() {
     CONTRACT_FOTBURN=$(cat $FILE_CONTRACT_ADDR)
-    junod tx wasm execute $CONTRACT_FOTBURN '{"update_config":{"new_owner":"'$ADDR_WORKSHOP'"}}' $WALLET $TXFLAG -y
+    junod tx wasm execute $CONTRACT_FOTBURN '{"update_config":{"new_owner":"'$ADDR_CEM'"}}' $WALLET $TXFLAG -y
 }
 
 PrintConfig() {
